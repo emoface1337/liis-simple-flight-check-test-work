@@ -2,6 +2,7 @@ import React, { FC, ReactElement } from 'react'
 import styled from 'styled-components'
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs'
 import DatePicker from '../DatePicker/DatePicker'
+import CarouselComponent from '../Carousel/Carousel'
 
 const Wrapper = styled.main`
   background: #FFFFFF;
@@ -30,6 +31,7 @@ const Flights: FC = (): ReactElement => {
                     <Breadcrumbs/>
                     <DatePicker/>
                 </Row>
+                <CarouselComponent/>
             </InnerWrapper>
         </Wrapper>
     )

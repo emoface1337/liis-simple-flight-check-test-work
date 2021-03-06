@@ -23,7 +23,6 @@ const DatePickerStyled = styled(ReactDatePicker)`
   letter-spacing: -0.408px;
   color: ${props => props.theme.primaryColor};
   width: 222px;
-  cursor: pointer;
   margin-right: 15px;
 
   &:disabled {
