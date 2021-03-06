@@ -3,6 +3,9 @@ import styled from 'styled-components'
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs'
 import DatePicker from '../DatePicker/DatePicker'
 import CarouselComponent from '../Carousel/Carousel'
+import Favourite from '../Favourite/Favourite'
+import FlightsList from '../FlightsList/FlightsList'
+import { Scrollbars } from 'react-custom-scrollbars'
 
 const Wrapper = styled.main`
   background: #FFFFFF;
@@ -32,6 +35,8 @@ const Flights: FC = (): ReactElement => {
                     <DatePicker/>
                 </Row>
                 <CarouselComponent/>
+                <Favourite/>
+                <FlightsList/>
             </InnerWrapper>
         </Wrapper>
     )

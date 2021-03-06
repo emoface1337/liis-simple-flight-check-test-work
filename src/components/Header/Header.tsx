@@ -1,6 +1,6 @@
 import React, { FC, ReactElement } from 'react'
 import styled from 'styled-components'
-import LogOutIcon from '../LogOutIcon/LogOutIcon'
+import LogOutIcon from '../Icons/LogOutIcon/LogOutIcon'
 
 
 const HeaderBlock = styled.header`

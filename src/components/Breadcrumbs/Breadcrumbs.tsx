@@ -1,5 +1,5 @@
 import React, { FC, ReactElement } from 'react'
-import BreadcrumbsIcon from '../BreadcrumbsIcon/BreadcrumbsIcon'
+import BreadcrumbsIcon from '../Icons/BreadcrumbsIcon/BreadcrumbsIcon'
 import styled from 'styled-components'
 
 
