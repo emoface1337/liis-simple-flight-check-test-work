@@ -1,5 +1,5 @@
 import React, { FC, ReactElement } from 'react'
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -26,14 +26,13 @@ const LoginWrapper = styled.div`
     z-index: 1;
     backdrop-filter: blur(20px);
   }
-
 `
 
 const Login = styled.div`
   border-radius: 20px;
   background: #fff;
   width: 410px;
-  height: 338px; 
+  height: 338px;
   display: flex;
   flex-direction: column;
   z-index: 9999;
@@ -104,6 +103,10 @@ const LoginButton = styled.button`
   &:active {
     background: linear-gradient(104.34deg, #5362BE -15.34%, #4AD5FF 145.95%);
   }
+
+  &:focus {
+    outline: none;
+  }
 `
 
 const LoginError = styled.span`
@@ -119,12 +122,12 @@ const LoginError = styled.span`
 
 const validationSchema = yup.object().shape({
     email: yup.string().email().required('Введите почту'),
-    password: yup.string().required('Введите пароль').min(8, 'Длина пароля должна быть не менее 8 символов')
+    password: yup.string().required('Введите пароль').min(8, 'Длина пароля должна быть не менее 8 символов').matches(/(^[a-zA-Z_\-+]+$)/, 'Используйте только латинский алфавит'),
 })
 
 const LoginPage: FC = (): ReactElement => {
 
-    const history = useHistory()
+    // const history = useHistory()
 
     const { handleSubmit, errors, register } = useForm<FormDataType>(
         {
