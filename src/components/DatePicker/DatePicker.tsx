@@ -4,6 +4,8 @@ import 'react-datepicker/dist/react-datepicker.css'
 import styled from 'styled-components'
 import ru from 'date-fns/locale/ru'
 import ReactDatePicker from 'react-datepicker'
+import { useDispatch } from 'react-redux'
+import { flightsActions } from '../../store/ducks/flights/flights'
 
 const DatePickerWrapper = styled.div`
   display: flex;
@@ -35,17 +37,23 @@ registerLocale('ru', ru)
 const DatePicker: FC = (): ReactElement => {
 
     const [isVisible, setIsVisible] = useState<boolean>(false)
+    const dispatch = useDispatch()
+
     const [date, setDate] = useState(new Date())
+
+    const handleDateChange = (date: Date) => {
+        setDate(date)
+        const stringDate = date.toISOString().substr(0, 10)
+        dispatch(flightsActions.setDate(stringDate))
+    }
 
     return (
         <DatePickerWrapper>
             <DatePickerStyled
                 selected={date}
-                onChange={(date: Date) => {
-                    setDate(date)
-                    // console.log(date)
-                }}
+                onChange={(date: Date) => handleDateChange(date)}
                 locale="ru"
+                minDate={new Date()}
                 dateFormat="dd MMMM yyyy"
                 open={isVisible}
                 onClickOutside={() => setIsVisible(false)}

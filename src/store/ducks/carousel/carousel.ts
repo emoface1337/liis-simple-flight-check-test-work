@@ -1,3 +1,5 @@
+import produce, { Draft } from 'immer'
+
 const initialState = {
     items: [
         {
@@ -23,6 +25,5 @@ const initialState = {
 
 export type CarouselStateType = typeof initialState
 
-export const carouselReducer = (state = initialState): CarouselStateType => {
-    return state
-}
+export const carouselReducer = produce((draft: Draft<CarouselStateType>) => {
+}, initialState)

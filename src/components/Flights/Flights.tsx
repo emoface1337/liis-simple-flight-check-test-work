@@ -5,7 +5,6 @@ import DatePicker from '../DatePicker/DatePicker'
 import CarouselComponent from '../Carousel/Carousel'
 import Favourite from '../Favourite/Favourite'
 import FlightsList from '../FlightsList/FlightsList'
-import { Scrollbars } from 'react-custom-scrollbars'
 
 const Wrapper = styled.main`
   background: #FFFFFF;

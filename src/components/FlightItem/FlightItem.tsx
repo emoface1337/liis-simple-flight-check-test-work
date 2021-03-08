@@ -3,6 +3,10 @@ import styled from 'styled-components'
 import PlaneIcon from '../Icons/PlaneIcon/PlaneIcon'
 import FlightArrowIcon from '../Icons/FlightArrowIcon/FlightArrowIcon'
 import FlightFavouriteIcon from '../Icons/FlightFavouriteIcon/FlightFavouriteIcon'
+import { CarrierType, QuoteType } from "../../api/flightsApi";
+import { flightDepartureDate, flightDepartureTime } from "../../utils/dateFormatter";
+import { useDispatch } from "react-redux";
+import { flightsActions } from "../../store/ducks/flights/flights";
 
 const FlightItemWrapper = styled.li`
   padding: 18px 10px;
@@ -56,10 +60,6 @@ const FlightItemRightWrapper = styled.div`
   align-items: flex-end;
 `
 
-const FlightFavouriteIconWrapper = styled.div`
-  cursor: pointer;
-`
-
 const FlightItemPrice = styled.div`
   > span {
     font-weight: 300;
@@ -75,10 +75,22 @@ const FlightItemPrice = styled.div`
 `
 
 type Props = {
+    flight: QuoteType
+    carrier?: CarrierType
     favourite?: boolean
 }
 
-const FlightItem: FC<Props> = ({ favourite }): ReactElement => {
+const FlightItem: FC<Props> = ({ favourite, flight, carrier }): ReactElement => {
+
+    const dispatch = useDispatch()
+
+    const handleFavouriteClick = () => {
+        if (favourite)
+            dispatch(flightsActions.removeFromFavourite(flight.QuoteId))
+        else
+            dispatch(flightsActions.addToFavourite(flight.QuoteId))
+    }
+
     return (
         <FlightItemWrapper>
             <FlightItemIcon>
@@ -90,16 +102,14 @@ const FlightItem: FC<Props> = ({ favourite }): ReactElement => {
                     <FlightArrowIconWrapper><FlightArrowIcon/></FlightArrowIconWrapper>
                     New York City (JFK)
                 </FlightItemInfoHead>
-                <FlightItemInfoDesc>28 June, 2020 - 14:50</FlightItemInfoDesc>
-                <FlightItemInfoDesc>Aeroflot</FlightItemInfoDesc>
+                <FlightItemInfoDesc>{flightDepartureDate(flight.OutboundLeg.DepartureDate)} - {flightDepartureTime(flight.QuoteDateTime)}</FlightItemInfoDesc>
+                <FlightItemInfoDesc>{carrier && carrier.Name}</FlightItemInfoDesc>
             </FlightItemInfo>
             <FlightItemRightWrapper>
-                <FlightFavouriteIconWrapper>
-                    <FlightFavouriteIcon favourite={favourite}/>
-                </FlightFavouriteIconWrapper>
+                <FlightFavouriteIcon favourite={favourite} onClick={handleFavouriteClick}/>
                 <FlightItemPrice>
                     <span>Price: </span>
-                    23 924 ₽
+                    {flight.MinPrice} ₽
                 </FlightItemPrice>
             </FlightItemRightWrapper>
         </FlightItemWrapper>

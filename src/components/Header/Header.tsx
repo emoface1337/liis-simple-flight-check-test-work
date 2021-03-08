@@ -1,6 +1,8 @@
 import React, { FC, ReactElement } from 'react'
 import styled from 'styled-components'
 import LogOutIcon from '../Icons/LogOutIcon/LogOutIcon'
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/ducks/auth/auth";
 
 
 const HeaderBlock = styled.header`
@@ -32,9 +34,16 @@ const HeaderLink = styled.a`
 
 
 const Header: FC = (): ReactElement => {
+
+    const dispatch = useDispatch()
+
+    const handleLogoutClick = () => {
+        dispatch(authActions.fetchLogOut())
+    }
+
     return (
         <HeaderBlock>
-            <HeaderLinkWrapper>
+            <HeaderLinkWrapper onClick={handleLogoutClick}>
                 <HeaderLink>Выйти</HeaderLink>
                 <LogOutIcon/>
             </HeaderLinkWrapper>

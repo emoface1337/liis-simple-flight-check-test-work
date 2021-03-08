@@ -1,5 +1,4 @@
 import React, { FC, ReactElement } from 'react'
-// import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -8,6 +7,9 @@ import { useForm } from 'react-hook-form'
 import loginBackground from './../assets/login-bg.jpg'
 
 import { FormDataType } from '../api/authApi'
+import { useDispatch, useSelector } from 'react-redux'
+import { authActions, LoadingStatusEnum } from '../store/ducks/auth/auth'
+import { RootState } from "../store";
 
 const LoginWrapper = styled.div`
   display: flex;
@@ -107,6 +109,11 @@ const LoginButton = styled.button`
   &:focus {
     outline: none;
   }
+
+  &:disabled {
+    background: gray;
+    pointer-events: none;
+  }
 `
 
 const LoginError = styled.span`
@@ -122,12 +129,13 @@ const LoginError = styled.span`
 
 const validationSchema = yup.object().shape({
     email: yup.string().email().required('Введите почту'),
-    password: yup.string().required('Введите пароль').min(8, 'Длина пароля должна быть не менее 8 символов').matches(/(^[a-zA-Z_\-+]+$)/, 'Используйте только латинский алфавит'),
+    password: yup.string().required('Введите пароль').min(8, 'Длина пароля должна быть не менее 8 символов')
 })
 
 const LoginPage: FC = (): ReactElement => {
 
-    // const history = useHistory()
+    const dispatch = useDispatch()
+    const status = useSelector((state: RootState) => state.auth.status)
 
     const { handleSubmit, errors, register } = useForm<FormDataType>(
         {
@@ -135,7 +143,7 @@ const LoginPage: FC = (): ReactElement => {
         })
 
     const onSubmit = handleSubmit(({ email, password }) => {
-        console.log(email, password)
+        dispatch(authActions.fetchSignIn({ email, password }))
     })
 
     return (
@@ -146,15 +154,15 @@ const LoginPage: FC = (): ReactElement => {
                     <LoginInputWrapper>
                         <LoginInputLabel>Логин:</LoginInputLabel>
                         <LoginInput type="email" name="email" ref={register}/>
-                        <LoginError>{errors.email && errors.email.message}</LoginError>
+                        {errors.email && <LoginError>{errors.email.message}</LoginError>}
                     </LoginInputWrapper>
                     <LoginInputWrapper>
                         <LoginInputLabel>Пароль:</LoginInputLabel>
                         <LoginInput type="password" name="password" ref={register}/>
-                        <LoginError>{errors.password && errors.password.message}</LoginError>
+                        {errors.password && <LoginError>{errors.password.message}</LoginError>}
                     </LoginInputWrapper>
                     <LoginButtonWrapper>
-                        <LoginButton>Войти</LoginButton>
+                        <LoginButton disabled={status === LoadingStatusEnum.LOADING}>Войти</LoginButton>
                     </LoginButtonWrapper>
                 </LoginForm>
             </Login>

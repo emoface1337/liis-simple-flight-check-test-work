@@ -1,12 +1,19 @@
 import React, { FC, ReactElement } from 'react'
 import styled from 'styled-components'
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
-const FavouriteWrapper = styled.div`
+type FavouriteWrapperProps = {
+    readonly isVisible: boolean
+}
+
+const FavouriteWrapper = styled.div<FavouriteWrapperProps>`
   font-weight: 300;
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.408px;
   margin-bottom: 12px;
+  opacity: ${props => props.isVisible ? '1' : '0'};
 `
 
 const FavouriteCount = styled.span`
@@ -15,9 +22,12 @@ const FavouriteCount = styled.span`
 `
 
 const Favourite: FC = (): ReactElement => {
+
+    const favouriteCount = useSelector((state: RootState) => state.flights.favouriteFlights.length)
+
     return (
-        <FavouriteWrapper>
-            Добавлено в Избранное: <FavouriteCount>10</FavouriteCount> рейсов
+        <FavouriteWrapper isVisible={favouriteCount !== 0}>
+            Добавлено в Избранное: <FavouriteCount>{favouriteCount}</FavouriteCount> рейсов
         </FavouriteWrapper>
     )
 }

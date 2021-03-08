@@ -3,19 +3,33 @@ export type FormDataType = {
     password: string
 }
 
-export type LogInRequestType = {
+export type LoginResponseType = {
     success: boolean
 }
 
+// hardcoded authorization
+
 export const authApi = {
-    logIn: (formData: FormDataType): Promise<LogInRequestType> => {
+    logIn(formData: FormDataType): Promise<LoginResponseType> {
         return new Promise((resolve) => {
             setTimeout(() => {
                 if (formData.email === 'test@test.ru' && formData.password === 'qwerty12')
                     resolve({
                         success: true
                     })
-            }, 1000)
+                resolve({
+                    success: false
+                })
+            }, 750)
+        })
+    },
+    logOut(): Promise<LoginResponseType> {
+        return new Promise<LoginResponseType>((resolve) => {
+            setTimeout(() => {
+                resolve({
+                    success: true
+                })
+            }, 10)
         })
     }
 }
