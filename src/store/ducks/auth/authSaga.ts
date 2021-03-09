@@ -22,13 +22,12 @@ function* fetchSignIn({ payload: formData }: FetchSignInInterface) {
 
     const data: LoginResponseType = yield call(authApi.logIn, formData)
 
-    console.log(data)
     if (data.success) {
         yield put(authActions.setStatus(LoadingStatusEnum.SUCCESS))
         yield put(authActions.setIsAuth(true))
         window.localStorage.setItem('isAuth', 'true')
     } else {
-        yield put(authActions.setStatus(LoadingStatusEnum.SUCCESS))
+        yield put(authActions.setStatus(LoadingStatusEnum.ERROR))
         yield put(authActions.setIsAuth(false))
         window.localStorage.setItem('isAuth', 'false')
     }
@@ -37,6 +36,7 @@ function* fetchSignIn({ payload: formData }: FetchSignInInterface) {
 function* fetchLogOut() {
     yield put(authActions.setStatus(LoadingStatusEnum.LOADING))
     const data: LoginResponseType = yield call(authApi.logOut)
+
     if (data.success) {
         window.localStorage.removeItem('isAuth')
         yield put(authActions.setIsAuth(false))

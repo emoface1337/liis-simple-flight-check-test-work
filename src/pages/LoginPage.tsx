@@ -81,8 +81,16 @@ const LoginInput = styled.input`
   }
 `
 const LoginButtonWrapper = styled.div`
-  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-top: 25px;
+`
+
+const LoginFetchError = styled.span`
+  color: ${props => props.theme.redColor};
+  font-weight: 300;
+  font-size: 12px;
 `
 
 const LoginButton = styled.button`
@@ -162,6 +170,7 @@ const LoginPage: FC = (): ReactElement => {
                         {errors.password && <LoginError>{errors.password.message}</LoginError>}
                     </LoginInputWrapper>
                     <LoginButtonWrapper>
+                        <LoginFetchError>{status === LoadingStatusEnum.ERROR && 'Неверный логин или пароль'}</LoginFetchError>
                         <LoginButton disabled={status === LoadingStatusEnum.LOADING}>Войти</LoginButton>
                     </LoginButtonWrapper>
                 </LoginForm>

@@ -53,6 +53,9 @@ const FlightsList: FC = (): ReactElement => {
 
     useEffect(() => {
         dispatch(flightsActions.fetchFlights(date))
+        return () => {
+            dispatch(flightsActions.setFlights(undefined))
+        }
     }, [date, dispatch])
 
     if (!flights) {
