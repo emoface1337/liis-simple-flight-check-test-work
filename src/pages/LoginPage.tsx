@@ -9,7 +9,7 @@ import loginBackground from './../assets/login-bg.jpg'
 import { FormDataType } from '../api/authApi'
 import { useDispatch, useSelector } from 'react-redux'
 import { authActions, LoadingStatusEnum } from '../store/ducks/auth/auth'
-import { RootState } from "../store";
+import { RootState } from '../store'
 
 const LoginWrapper = styled.div`
   display: flex;

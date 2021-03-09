@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from 'react'
 import styled from 'styled-components'
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { useSelector } from 'react-redux'
+import { RootState } from '../../store'
 
 type FavouriteWrapperProps = {
     readonly isVisible: boolean

@@ -5,7 +5,7 @@ import styled, { keyframes } from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../store'
 import { flightsActions } from '../../store/ducks/flights/flights'
-import { CarrierType, QuoteType } from "../../api/flightsApi";
+import { CarrierType, QuoteType } from '../../api/flightsApi'
 
 const FlightList = styled.ul`
   margin: 0;
