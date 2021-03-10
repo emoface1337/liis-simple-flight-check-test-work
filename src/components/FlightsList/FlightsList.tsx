@@ -91,7 +91,9 @@ const FlightsList: FC = (): ReactElement => {
                             }
                         </FlightList>
                     </Scrollbars>
-                    : null
+                    :
+                    <div style={{ padding: '25px 25px', textAlign: 'center', fontSize: '24px' }}>Рейсов на заданную дату
+                        не найдено</div>
             }
         </>
     )
